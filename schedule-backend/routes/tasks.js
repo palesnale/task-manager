@@ -9,6 +9,18 @@ router.get('/', async(req, res) => {
     res.json(tasks);
 });
 
+router.get('/:id', async(req, res) => {
+    try {
+        const task = await Task.findById(req.params.id);
+        if(!task)
+            return res.status(400).json({error: 'Task not found!'});
+        res.json(task);
+    }
+    catch(err) {
+        res.status(500).json({error: 'Server error'});
+    }
+});
+
 router.post('/', async(req, res) => {
     const newTask = new Task(req.body);
     const savedTask = await newTask.save();

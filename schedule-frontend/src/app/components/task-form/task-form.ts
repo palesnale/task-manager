@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 
@@ -39,6 +39,8 @@ export class TaskForm {
         this.isEdit = true;
         this.taskId = id;
         this.taskService.getTaskById(id).subscribe(task => {
+          if(task.dueDate)
+            task.dueDate = this.formatDateForInput(task.dueDate);
           this.taskForm.patchValue(task);
         });
       }
@@ -64,4 +66,9 @@ export class TaskForm {
       });
     }
   }
+
+  private formatDateForInput(dateString: string): string {
+    return formatDate(dateString, 'yyyy-MM-dd', 'en-US');
+  }
+
 }
