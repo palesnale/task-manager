@@ -5,7 +5,8 @@ const TaskSchema = new mongoose.Schema({
     description: String,
     dueDate: Date,
     category: String,
-    status: {type: String, default: "Pending"}
+    status: {type: String, default: "Pending"},
+    completed: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

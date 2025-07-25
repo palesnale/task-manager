@@ -30,9 +30,18 @@ export class TaskList implements OnInit {
     });
   }
 
+  toggleDone(task: any) {
+    task.completed = !task.completed;
+    task.status = task.completed ? 'Done' : 'Pending';
+
+    this.taskService.updateTask(task._id!, task).subscribe(updated => {
+      console.log('Task updated:', updated);
+    });
+  }
+
   deleteTask(id: string) {
     this.taskService.deleteTask(id).subscribe(() => {
       this.tasks = this.tasks.filter(task => task._id != id);
-    })
+    });
   }
 }

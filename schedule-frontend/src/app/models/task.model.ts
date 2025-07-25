@@ -5,4 +5,5 @@ export interface Task {
   dueDate: string;
   category: string;
   status: string;
+  completed: boolean;
 }

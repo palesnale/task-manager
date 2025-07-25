@@ -12,16 +12,20 @@
             <th>Due Date</th>
             <th>Category</th>
             <th>Status</th>
+            <th>Done?</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let task of tasks">
+        <tr *ngFor="let task of tasks" [ngClass]="{'completed': task.completed}">
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.dueDate | date }}</td>
             <td>{{ task.category }}</td>
             <td>{{ task.status }}</td>
+            <td style = "text-align: center; vertical-align: middle;">
+                <input type="checkbox" [checked]="task.completed" (change)="toggleDone(task)">
+            </td>
             <td>
                 <button [routerLink]="['/edit', task._id]">Edit</button>
                 <button (click)="deleteTask(task._id!)">Delete</button>
